@@ -7,8 +7,18 @@ const sidebars = {
         //     label: '测试1'
         // },
         {
-            id: 'describe',
+            id: 'quick-start',
             type: 'doc',
+        },
+        {
+            type: 'category',
+            label: 'tutorials',
+            items: [
+                {
+                    id: 'v0.2.0/tutorials/mcs-discovery',
+                    type: 'doc',
+                },
+            ],
         },
         {
             id: 'example/describe2',

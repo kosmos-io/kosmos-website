@@ -1,0 +1,40 @@
+.featuresText {
+  display: flex;
+  justify-content: space-between;
+  height: 535px;
+  margin: 0px 80px;
+  max-width: 1800px;
+    width: 100%;
+}
+
+.rigthInfo {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 30px;
+  align-items: end;
+    padding: 200px;
+}
+
+.containerView {
+  justify-content: center;
+  display: flex;
+}
+
+
+.leftInfo {
+  width: 50%;
+  margin-right: 150px;
+}
+
+.featureTitle {
+  font-family: PingFangSC-Semibold;
+  font-size: 40px;
+  color: #333;
+  font-weight: 600;
+}
+
+.featuresDes {
+  max-width: 384px;
+}

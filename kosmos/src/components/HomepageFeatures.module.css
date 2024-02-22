@@ -1,0 +1,88 @@
+.features {
+  display: flex;
+    justify-content: center;
+}
+.featuresContainer {
+  max-width: 1800px;
+  margin: 80px 80px 40px 80px;
+    width: 100%;
+}
+.featureTitle {
+  font-family: PingFangSC-Semibold;
+  font-size: 40px;
+  color: #333333;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+.featureText {
+  width: 200px;
+  margin-bottom: 15px;
+}
+.line {
+  width: 55px;
+  border-bottom: 5px solid #3355e9;
+  margin: 0 0 20px 5px;
+}
+.featureItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 460px;
+  background-color: #fff;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.featureItemRight {
+  flex-direction: row-reverse;
+}
+
+.featureDes {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* 修改为垂直排列 */
+  align-items: left; /* 水平对齐方式 */
+  justify-content: center; /* 垂直对齐方式 */
+  margin-left: 120px;
+  z-index: 1;
+}
+
+.featureItemRight .featureDes {
+  align-items: flex-end; /* 修改水平对齐方式 */
+  margin-right: 120px;
+}
+
+.featureItemRight .featureDesTitle {
+  padding-right: 322px;
+}
+
+.featureBackground {
+  position: absolute;
+  width: 100%;
+  height: 450px;
+  top: 0;
+  left: 0;
+}
+
+.featureImg {
+  width: 100%;
+  height: 100%;
+}
+
+.featureDesTitle {
+  font-family: PingFangSC-Semibold;
+  font-size: 32px;
+  color: #333333;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.featureDesInfo {
+  font-family: PingFangSC-Semibold;
+  font-size: 16px;
+  color: #626262;
+  line-height: 22px;
+  font-weight: 600;
+  max-width: 384px;
+}

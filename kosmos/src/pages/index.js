@@ -19,7 +19,7 @@ function HomepageHeader() {
           <div className={styles.buttons}>
             <Link
               className={`button button--secondary button--lg ${styles.button1}`}
-              to="/describe" style={{ borderRadius: '25px' }}>
+              to="/quick-start" style={{ borderRadius: '25px' }}>
               开始使用
             </Link>
           </div>

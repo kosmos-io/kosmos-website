@@ -1,5 +1,5 @@
 ---
-id: describe
+id: quick-start
 title: '快速开始'
 ---
 

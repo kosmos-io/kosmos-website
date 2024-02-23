@@ -19,22 +19,22 @@ function HomepageHeader() {
           <div className={styles.buttons}>
             <Link
               className={`button button--secondary button--lg ${styles.button1}`}
-              to="/quick-start" style={{ borderRadius: '25px' }}>
-              开始使用
+              to="v0.2.0/quick-start" style={{ borderRadius: '25px' }}>
+              Get Started
             </Link>
           </div>
           <div className={styles.star}>
-              <GitHubButton
-                href="https://github.com/kosmos-io/kosmos"
-                data-icon="octicon-star"
-                data-size="large"
-                data-show-count="true"
-              >
-                Star
-              </GitHubButton>
+            <GitHubButton
+              href="https://github.com/kosmos-io/kosmos"
+              data-icon="octicon-star"
+              data-size="large"
+              data-show-count="true"
+            >
+              Star
+            </GitHubButton>
           </div>
           <div className={styles.headerDes}>
-            <p>If you like Kosmos, give it a star on GitHub!</p>
+            <p className={styles.headerDesInfo}>If you like Kosmos, give it a star on GitHub!</p>
             <p>Kosmos v0.2.0-lts is now available.(2023-04-20) Read Release Note</p>
           </div>
         </div>

@@ -3,6 +3,8 @@ id: distribution-policy
 title: 'Distribution Policy'
 ---
 
+# Distribution Policy
+
 ## Summary
 Kosmos provides a multi-cluster scheduler (kosmos-scheduler) and some scheduling plugins.
 

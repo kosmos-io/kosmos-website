@@ -96,16 +96,16 @@ const config = {
 					title: "Documentation",
 					items: [
 						{
-							label: "Getting Started",
-							to: "/docs/intro",
+							label: "Quick Start",
+							to: "v0.2.0/quick-start",
 						},
 						{
 							label: "Tutorials",
-							to: "/docs/intro",
+							to: "v0.2.0/tutorials/mcs-discovery",
 						},
 						{
-							label: "Core Concepts",
-							to: "/docs/intro",
+							label: "Proposals",
+							to: "v0.2.0/proposals/k8s-in-k8s",
 						},
 					],
 				},

@@ -30,7 +30,6 @@ const config = {
 	},
 
 	scripts: [], //一组要加载的脚本
-
 	presets: [
 		[
 			"classic",

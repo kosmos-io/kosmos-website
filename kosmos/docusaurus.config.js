@@ -4,7 +4,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 // /** @type {import('@docusaurus/types').Config} */
 const config = {
 	title: "Kosmos", //网站标题
-	tagline: "文本标签", //网站标语
+	tagline: "Flexible and scalable Kubernetes multi-cluster management, combined with efficient and precise cross-cluster resource scheduling, achieves maximum resource utilization.", //网站标语
 	favicon: "img/favicon.ico", //你的网站图标的路径；必须是可以用于链接 href 的 URL
 
 	// Set the production url of your site here
@@ -25,8 +25,8 @@ const config = {
 
 	//i18n配置相关
 	i18n: {
-		defaultLocale: "zh",
-		locales: ["zh"],
+		defaultLocale: "en",
+		locales: ["en"],
 	},
 
 	scripts: [], //一组要加载的脚本
@@ -79,9 +79,9 @@ const config = {
 					type: "docSidebar",
 					sidebarId: "tutorialSidebar",
 					position: "right",
-					label: "文档",
+					label: "Documentation",
 				},
-				{ to: "/blog", label: "参考案例", position: "right" },
+				{ to: "/blog", label: "Examples", position: "right" },
 				{
 					href: "https://www.baidu.com",
 					className: "header-github-link",
@@ -94,49 +94,37 @@ const config = {
 			style: "dark",
 			links: [
 				{
-					title: "文档",
+					title: "Documentation",
 					items: [
 						{
-							label: "快速开始",
+							label: "Getting Started",
 							to: "/docs/intro",
 						},
 						{
-							label: "实践教程",
+							label: "Tutorials",
 							to: "/docs/intro",
 						},
 						{
-							label: "核心概念",
+							label: "Core Concepts",
 							to: "/docs/intro",
 						},
 					],
 				},
 				{
-					title: "社区",
+					title: "Community",
 					items: [
 						{
-							label: "社区地址1",
-							href: "https://www.baidu.com",
-						},
-						{
-							label: "社区地址2",
-							href: "https://www.baidu.com",
-						},
-						{
-							label: "社区地址3",
+							label: "Community Address Name",
 							href: "https://www.baidu.com",
 						},
 					],
 				},
 				{
-					title: "更多",
+					title: "More",
 					items: [
 						{
-							label: "GitHub1",
-							href: "https://www.baidu.com",
-						},
-						{
-							label: "GitHub2",
-							href: "https://www.baidu.com",
+							label: "GitHub",
+							href: "https://kosmos-io.github.io",
 						},
 					],
 				},

@@ -82,7 +82,7 @@ const config = {
 				},
 				{ to: "/blog", label: "Examples", position: "right" },
 				{
-					href: "https://www.baidu.com",
+					href: "https://github.com/kosmos-io/kosmos",
 					className: "header-github-link",
 					"aria-label": "GitHub repository",
 					position: "right",
@@ -114,7 +114,7 @@ const config = {
 					items: [
 						{
 							label: "Community Address Name",
-							href: "https://www.baidu.com",
+							href: "https://github.com/kosmos-io/kosmos",
 						},
 					],
 				},
@@ -123,7 +123,7 @@ const config = {
 					items: [
 						{
 							label: "GitHub",
-							href: "https://kosmos-io.github.io",
+							href: "https://github.com/kosmos-io/kosmos",
 						},
 					],
 				},

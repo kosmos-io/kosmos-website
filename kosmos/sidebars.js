@@ -18,6 +18,10 @@ const sidebars = {
                     id: 'v0.2.0/tutorials/mcs-discovery',
                     type: 'doc',
                 },
+                {
+                    id: 'v0.2.0/tutorials/mc-scheduler',
+                    type: 'doc',
+                },
             ],
         },
         {

@@ -22,6 +22,10 @@ const sidebars = {
                     id: 'v0.2.0/tutorials/mc-scheduler',
                     type: 'doc',
                 },
+                {
+                    id: 'v0.2.0/tutorials/node-not-ready',
+                    type: 'doc',
+                },
             ],
         },
         {

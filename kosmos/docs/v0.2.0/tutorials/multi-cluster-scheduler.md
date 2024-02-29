@@ -26,7 +26,9 @@ The Scheduler framework was first introduced through the [624-scheduling-framewo
 For this purpose, the scheduler framework defines multiple extension points as follows:
 ![MC_Scheduler.png](img/MC_Scheduler.png)
 
-The **LeafNodeTaintToleration** and **LeafNodeVolumeBinding** scheduling plugins in kosmos-scheduler are mainly optimized based on the ***NodeTaintToleration*** and ***NodeVolumeBinding*** scheduling plugins of the Kubernetes default scheduler. The **LeafNodeTaintToleration** plugin mainly adds tolerance to the **「kosmos.io/node=true:Noschedule」** taint in the virtual node in the **Filter extension point**. The **LeafNodeVolumeBinding** plugin mainly acts on the **Filter, Reserve, Unreserve, and PreBind extension points**, and directly passes the virtual node with the **「kosmos.io/node=true:Noschedule」** taint.
+`LeafNodeTaintToleration` and `LeafNodeVolumeBinding` scheduling plugins in kosmos-scheduler are mainly optimized based on the `NodeTaintToleration` and `NodeVolumeBinding` scheduling plugins of the Kubernetes default scheduler. 
+`LeafNodeTaintToleration` plugin mainly adds tolerance to the `kosmos.io/node=true:Noschedule` taint in the virtual node in the `Filter extension point`. 
+`LeafNodeVolumeBinding` plugin mainly acts on the Filter, Reserve, Unreserved, and PreBind extension points, and directly passes the virtual node with the `kosmos.io/node=true:Noschedule` taint.
 
 ### Prerequisites
 

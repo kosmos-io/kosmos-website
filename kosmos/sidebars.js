@@ -1,14 +1,19 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
     tutorialSidebar: [
-        // {
-        //     id: 'testMd',
-        //     type: 'doc',
-        //     label: '测试1'
-        // },
         {
-            id: 'v0.2.0/quick-start',
-            type: 'doc',
+            type: 'category',
+            label: 'Getting Started',
+            items: [
+                {
+                    id: 'v0.2.0/getting-started/introduction',
+                    type: 'doc',
+                },
+                {
+                    id: 'v0.2.0/quick-start',
+                    type: 'doc',
+                },
+            ],
         },
         {
             type: 'category',
@@ -46,6 +51,11 @@ const sidebars = {
                 },
             ],
         },
+        // {
+        //     id: 'testMd',
+        //     type: 'doc',
+        //     label: '测试1'
+        // },
         // {
         //     id: 'example/describe2',
         //     type: 'doc',

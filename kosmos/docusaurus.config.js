@@ -96,8 +96,8 @@ const config = {
 					title: "Documentation",
 					items: [
 						{
-							label: "Quick Start",
-							to: "v0.2.0/quick-start",
+							label: "Getting Started",
+							to: "v0.2.0/getting-started/introduction",
 						},
 						{
 							label: "Tutorials",

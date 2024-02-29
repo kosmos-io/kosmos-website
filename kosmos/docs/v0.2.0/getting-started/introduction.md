@@ -5,11 +5,11 @@ title: 'Introduction'
 
 # Introduction
 
-## What is KOSMOS?
+## What is Kosmos?
 
 Kosmos is an open-source, all-in-one distributed cloud-native solution. The name "kosmos" combines 'k' representing Kubernetes and 'cosmos' which means universe in Greek, symbolizing the limitless expansion of Kubernetes. 
 
-Currently, Kosmos primarily consists of three major modules: `ClusterLink`, `ClusterTree` and `Scheduler`. Additionally, Kosmos is equipped with a tool called kosmosctl, which allows for quick deployment of Kosmos components, adding clusters, and testing network connectivity.
+Currently, Kosmos primarily consists of three major modules: `ClusterLink`, `ClusterTree` and `Scheduler`.
 
 ## ClusterLink
 

@@ -4,6 +4,7 @@ const sidebars = {
         {
             type: 'category',
             label: 'Getting Started',
+            collapsed: false,
             items: [
                 {
                     id: 'v0.2.0/getting-started/introduction',
@@ -18,6 +19,7 @@ const sidebars = {
         {
             type: 'category',
             label: 'Tutorials',
+            collapsed: false,
             items: [
                 {
                     id: 'v0.2.0/tutorials/mcs-discovery',
@@ -31,11 +33,16 @@ const sidebars = {
                     id: 'v0.2.0/tutorials/node-not-ready',
                     type: 'doc',
                 },
+                {
+                    id: 'v0.2.0/tutorials/ipsec-network',
+                    type: 'doc',
+                },
             ],
         },
         {
             type: 'category',
             label: 'Proposals',
+            collapsed: false,
             items: [
                 {
                     id: 'v0.2.0/proposals/k8s-in-k8s',

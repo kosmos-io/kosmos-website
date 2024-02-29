@@ -103,7 +103,7 @@ spec:
 ## Test plans
 
 ### Preparatory Work
-First, Kosmos needs to be [deployed successfully](https://mp.weixin.qq.com/s/6zZXPP9FKbgWV1JUYv-iVw) (at least the clustertree module is deployed) and join the member cluster correctly.
+First, Kosmos needs to be [deployed successfully](https://kosmos-io.github.io/website/v0.2.0/quick-start) (at least the clustertree module is deployed) and join the member cluster correctly.
 
 ### Deploy the Kosmos-scheduler
 1. Configure scheduler and scheduling policy

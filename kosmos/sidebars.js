@@ -30,6 +30,10 @@ const sidebars = {
                     type: 'doc',
                 },
                 {
+                    id: 'v0.2.0/tutorials/exe-and-log',
+                    type: 'doc',
+                },
+                {
                     id: 'v0.2.0/tutorials/node-not-ready',
                     type: 'doc',
                 },

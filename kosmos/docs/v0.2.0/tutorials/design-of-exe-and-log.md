@@ -119,9 +119,36 @@ The kubelet service running on the node will capture the exec request and then e
 The above briefly introduces the process of establishing kubectl exec.
 
 ### Implementation in Kosmos
-Now let's take a look at the part in the root cluster in the overall architecture diagram. 
-To enable exec requests to be forwarded to the leaf cluster, a service similar to kubelet needs to be launched to listen for the exec requests. 
-In the clustertree-cluster-manager service, we start a nodeServer service, as shown in the following code snippet:
+Next, let's take a look at the root cluster in the overall architecture diagram. 
+In order for the exec request to be passed to the leaf cluster, the exec request needs to be forwarded. 
+
+First, we need to tell apiserver that the ip address of kosmos-node is the podIP of our clustertree-cluster-manager, which will cause apiserver to forward the exec request to clustertree-cluster-manager. 
+When we synchronize the node information of kosmos-node, we read it from the environment variable LEAF_NODE_IP. 
+This environment variable is configured when starting the clustertree-cluster-manager service. 
+The key configuration fragment is as follows:
+````shell script
+spec:
+   serviceAccountName: clustertree
+   containers:
+     - name: clustertree-cluster-manager
+       image: ghcr.io/kosmos-io/clustertree-cluster-manager:__VERSION__
+       imagePullPolicy: IfNotPresent
+       env:
+         - name: APISERVER_CERT_LOCATION
+           value: /etc/cluster-tree/cert/cert.pem
+         - name: APISERVER_KEY_LOCATION
+           value: /etc/cluster-tree/cert/key.pem
+         - name: LEAF_NODE_IP
+           valueFrom:
+             fieldRef:
+               fieldPath: status.podIP
+         - name: PREFERRED-ADDRESS-TYPE
+           value: InternalDNS
+````
+
+Then we need to start a kubelet-like service that listens to exec. 
+In the clustertree-cluster-manager service, we start a nodeserver service. 
+The code snippet is as follows:
 ````shell script
 nodeServer := nodeserver.NodeServer{
     RootClient:        mgr.GetClient(),
@@ -134,8 +161,8 @@ go func() {
 }()
 ````
 
-This service listens for exec and log requests and acts as a proxy to forward the received requests to the corresponding leaf cluster. 
-The source code snippet is as follows:
+This service monitors exec and log requests, and will act as a proxy to forward the monitored requests to the corresponding leaf cluster. 
+The source code is as follows:
 ````shell script
 func (s *NodeServer) AttachRoutes(m *http.ServeMux) {
     r := mux.NewRouter()

@@ -35,7 +35,7 @@ Since target resources distribution policies are stored in the CRD (Distribution
 
 **PolicyTerms**
 1. PolicyTerms is required
-2. The current node scheduling policy is divided into three nodeType （host, leaf, mix）.
+2. The current node scheduling policy is divided into four nodeTypes （host, leaf, mix, adv）.
 3. Advanced options will be supported in the future. Sure as NodeSelector, Affinity and so on.
 
 ## Use cases

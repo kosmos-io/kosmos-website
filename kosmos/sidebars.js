@@ -30,6 +30,10 @@ const sidebars = {
                     type: 'doc',
                 },
                 {
+                    id: 'v0.2.0/tutorials/mcn-connectivity',
+                    type: 'doc',
+                },
+                {
                     id: 'v0.2.0/tutorials/pv-pvc-dynamic-storage',
                     type: 'doc',
                 },

@@ -10,7 +10,7 @@ One of the foundations for achieving this is the need to build a multi-cluster n
 ## Multi-cluster Container Network Solution
 
 ### Introduction
-Clusterlink includes two network modes: Gateway and P2P. In the Gateway mode, when a data packet is sent by a Pod on the left, it first goes through the vx-local tunnel within the cluster to reach the gateway node of that cluster. 
+Clusterlink includes two network modes: Gateway and P2P. In the Gateway mode, when a data packet is sent by a Pod on the left, it first goes through the vx-local tunnel within the cluster to reach the Gateway node of that cluster. 
 It then traverses the cross-cluster tunnel to reach the counterpart cluster. 
 Once the data packet arrives at the counterpart cluster, it is handled by the CNI and follows the single-cluster network to reach the target Pod. 
 This mode has its advantages and disadvantages. 
@@ -42,7 +42,7 @@ It has shorter network paths and better performance, making it suitable for full
 #### Install Kosmos
 Refer to the Kosmos Quick Start documentation https://github.com/kosmos-io/kosmos and enable the ClusterLink module for multi-cluster networking. Using the kosmosctl tool:
 ````shell script
-kosmosctl install --cni calico --default-nic eth0 (We build a network tunnel based on the network interface value passed by the arg default-nic)
+kosmosctl install --cni calico --default-nic eth0 (We build a network tunnel based on the network interface value passed by the arg "default-nic")
 ````
 
 #### Join the Leaf Cluster
@@ -51,7 +51,7 @@ kosmosctl join cluster --name cluster1 --kubeconfig ~/kubeconfig/cluster1-kubeco
 ````
 
 ### Across Cluster L3 Network Connectivity
-To achieve inter-cluster L3 network connectivity in Kosmos, at least two different cluster nodes from each cluster need to be able to communicate with each other at the host machine network level, and the clusters must be correctly deployed and support VXLAN or IPSec technologies.
+To achieve cross-cluster L3 network connectivity in Kosmos, at least two different cluster nodes from each cluster need to be able to communicate with each other at the host machine network level, and the clusters must be correctly deployed and support VXLAN or IPSec technologies.
 
 #### Gateway Mode
 In each Kubernetes cluster within the Kosmos federation, one node is elected as the Gateway (GW) node using the Elector module. 
@@ -82,17 +82,17 @@ kosmos-control-cluster   p2p            all
 # Check if the clusternodes resource has been created correctly
 [root@kosmos-control-cluster yaml]# kubectl get clusternodes.kosmos.io
 NAME                         ROLES         INTERFACE    IP
-cluster38-001                              bond0.1820   10.251.132.38
-cluster38-002                              bond0.1820   10.251.132.39
-cluster38-003                              bond0.1830   10.251.142.94
-cluster38-004                ["gateway"]   bond0.1830   10.251.142.95
-kosmos-control-cluster-001                 bond0.1820   10.251.132.14
-kosmos-control-cluster-002                 bond0.1820   10.251.132.15
-kosmos-control-cluster-003   ["gateway"]   bond0.1565   10.253.195.38
-kosmos-control-cluster-004                 bond0.1565   10.253.195.31
-kosmos-control-cluster-005                 bond0.1565   10.253.195.32
-kosmos-control-cluster-006                 bond0.1565   10.253.195.33
-kosmos-control-cluster-007                 bond0.1565   10.253.195.37
+cluster38-001                              bond0.1820   10.*.*.38
+cluster38-002                              bond0.1820   10.*.*.39
+cluster38-003                              bond0.1830   10.*.*.94
+cluster38-004                ["gateway"]   bond0.1830   10.*.*.95
+kosmos-control-cluster-001                 bond0.1820   10.*.*.14
+kosmos-control-cluster-002                 bond0.1820   10.*.*.15
+kosmos-control-cluster-003   ["gateway"]   bond0.1565   10.*.*.38
+kosmos-control-cluster-004                 bond0.1565   10.*.*.31
+kosmos-control-cluster-005                 bond0.1565   10.*.*.32
+kosmos-control-cluster-006                 bond0.1565   10.*.*.33
+kosmos-control-cluster-007                 bond0.1565   10.*.*.37
 
 # Check if the nodeconfigs resource has been created correctly
 [root@kosmos-control-cluster yaml]# kubectl get nodeconfigs.kosmos.io
@@ -111,7 +111,7 @@ kosmos-control-cluster-007   45d
 ````
 
 #### Create Test Pods
-Verify the inter-cluster container network connectivity by creating Pods in the kosmos-control-cluster and cluster38 clusters. 
+Verify the cross-cluster container network connectivity by creating Pods in the kosmos-control-cluster and cluster38 clusters. 
 To ensure the containers have common network utilities such as Ping and Curl, use the clusterlink-floater image. 
 More details about the Floater feature will be provided in subsequent sections. Here is a sample YAML to create the Pods:
 ````shell script
@@ -233,28 +233,28 @@ Get the IP addresses of the two Pods and enter the container of either Pod to ex
 Here is an example:
 ````shell script
 [root@cluster38 yaml]# kubectl -n kosmos-system get pod clusterlink-floater-7dcb47579-jx85c -oyaml |grep ip
-  - ip: 10.224.12.253
-  - ip: fd11:1111:1114:1111:6ea:7333:4573:f17d
+  - ip: 10.*.*.253
+  - ip: fd11:1111:*:*:*:*:4573:f17d
 
 [root@kosmos-control-cluster yaml]# kubectl -n kosmos-system exec -it clusterlink-floater-7dcb47579-lddgc -- sh
-/ # ping 10.224.12.253
-PING 10.224.12.253 (10.224.12.253): 56 data bytes
-64 bytes from 10.224.12.253: seq=0 ttl=62 time=0.592 ms
-64 bytes from 10.224.12.253: seq=1 ttl=62 time=0.362 ms
-64 bytes from 10.224.12.253: seq=2 ttl=62 time=0.388 ms
-64 bytes from 10.224.12.253: seq=3 ttl=62 time=0.373 ms
+/ # ping 10.*.*.253
+PING 10.*.*.253 (10.*.*.253): 56 data bytes
+64 bytes from 10.*.*.253: seq=0 ttl=62 time=0.592 ms
+64 bytes from 10.*.*.253: seq=1 ttl=62 time=0.362 ms
+64 bytes from 10.*.*.253: seq=2 ttl=62 time=0.388 ms
+64 bytes from 10.*.*.253: seq=3 ttl=62 time=0.373 ms
 ^C
---- 10.224.12.253 ping statistics ---
+--- 10.*.*.253 ping statistics ---
 4 packets transmitted, 4 packets received, 0% packet loss
 round-trip min/avg/max = 0.362/0.428/0.592 ms
-/ # ping -6 fd11:1111:1114:1111:6ea:7333:4573:f17d
-PING fd11:1111:1114:1111:6ea:7333:4573:f17d (fd11:1111:1114:1111:6ea:7333:4573:f17d): 56 data bytes
-64 bytes from fd11:1111:1114:1111:6ea:7333:4573:f17d: seq=0 ttl=62 time=0.679 ms
-64 bytes from fd11:1111:1114:1111:6ea:7333:4573:f17d: seq=1 ttl=62 time=0.492 ms
-64 bytes from fd11:1111:1114:1111:6ea:7333:4573:f17d: seq=2 ttl=62 time=0.406 ms
-64 bytes from fd11:1111:1114:1111:6ea:7333:4573:f17d: seq=3 ttl=62 time=1.488 ms
+/ # ping -6 fd11:1111:*:*:*:*:4573:f17d
+PING fd11:1111:*:*:*:*:4573:f17d (fd11:1111:*:*:*:*:4573:f17d): 56 data bytes
+64 bytes from fd11:1111:*:*:*:*:4573:f17d: seq=0 ttl=62 time=0.679 ms
+64 bytes from fd11:1111:*:*:*:*:4573:f17d: seq=1 ttl=62 time=0.492 ms
+64 bytes from fd11:1111:*:*:*:*:4573:f17d: seq=2 ttl=62 time=0.406 ms
+64 bytes from fd11:1111:*:*:*:*:4573:f17d: seq=3 ttl=62 time=1.488 ms
 ^C
---- fd11:1111:1114:1111:6ea:7333:4573:f17d ping statistics ---
+--- fd11:1111:*:*:*:*:4573:f17d ping statistics ---
 4 packets transmitted, 4 packets received, 0% packet loss
 round-trip min/avg/max = 0.406/0.766/1.488 ms
 ````
@@ -273,9 +273,9 @@ The architecture of the ClusterLink Floater is as follows:
 The kosmosctl command line tool provides a one-click diagnostic command "dr" to easily validate the network connectivity between multiple Kubernetes clusters, including but not limited to host network, container network, and native cluster network. 
 Here is an example:
 ````shell script
-# Verify inter-cluster Underlay network
+# Verify cross-cluster host network
 kosmosctl dr -r ghcr.io/kosmos-io/komos --src-kubeconfig root-config --dst-kubeconfig cluster38-config --host-network
 
-# Verify inter-cluster container network
+# Verify cross-cluster container network
 kosmosctl dr -r ghcr.io/kosmos-io/komos --src-kubeconfig root-config --dst-kubeconfig cluster38-config
 ````

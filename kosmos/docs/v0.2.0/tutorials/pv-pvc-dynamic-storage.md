@@ -45,7 +45,7 @@ The 'volumeBindingMode' field in StorageClass definition specifies how the dynam
 Here are several common volume binding modes:
 - Immediate: In this mode, the provisioner immediately binds an available PV to the PVC. If there are no available PVs matching the requirements of the PVC, the PVC remains in the Pending state.
 - WaitForFirstConsumer: In this mode, the provisioner waits until a Pod referencing the PVC attempts to mount the volume before allocating a PV. The PV is dynamically bound when the PVC is consumed by the Pod.
-- Cluster: This is the default binding mode. PV is immediately assigned to PVC. This mode is similar to Immediate, but it allows the cluster administrator to override the default binding mode of StorageClass. Each StorageClass can have only one binding mode, and once set, it cannot be changed.
+- Cluster: This is the default binding mode. PV is immediately assigned to PVC. This mode is similar to 'Immediate', but it allows the cluster administrator to override the default binding mode of StorageClass. Each StorageClass can have only one binding mode, and once set, it cannot be changed.
 
 Choose the appropriate binding mode based on your needs and environment configuration.
 
@@ -72,20 +72,20 @@ After this operation, the volume enters the VOL_READY state.
 
 #### Across-clusters Implementation 
 Based on the above PVC, PV, StorageClass logic in a single Kubernetes cluster, and combined with the logic of creating Pod instances across clusters in Kosmos, the implementation approach for PV/PVC across clusters is as follows
-- In the primary cluster (Host-Cluster), the volumeBindingMode of StorageClass is set to WaitForFirstConsumer, ensuring delayed binding and configuration of PV (waiting for synchronization with the member cluster) until a Pod using PersistentVolumeClaim is created. 
+- In the host cluster (Host-Cluster), the volumeBindingMode of StorageClass is set to WaitForFirstConsumer, ensuring delayed binding and configuration of PV (waiting for synchronization with the member cluster) until a Pod using PersistentVolumeClaim is created. 
 PersistentVolumes will be selected or configured based on scheduling constraints specified in Pod, including resource requirements, node selectors, pod affinities and anti-affinities, taints, and tolerations.
-- PVC and PV binding in the primary cluster (Host-Cluster) should be consistent with the creation of Pods across clusters in Kosmos.
-- The PV controller in the primary cluster (Host-Cluster) only handles PV deletion events, and creation and updates are operated by the PV controller in the member clusters.
+- PVC and PV binding in the host cluster (Host-Cluster) should be consistent with the creation of Pods across clusters in Kosmos.
+- The PV controller in the host cluster (Host-Cluster) only handles PV deletion events, and creation and updates are operated by the PV controller in the member clusters.
 
 ### Flow
 The implementation flow of Kosmos PV/PVC is as follows:
 
 ![PV_PVC_Dynamic_Storage.png](img/PV_PVC_Dynamic_Storage.png)
 
-- When a Pod is created in the primary cluster (Host-Cluster) and there is an associated PVC request, Kosmos will create the corresponding PVC in the member cluster based on the Pod creation event.
+- When a Pod is created in the host cluster (Host-Cluster) and there is an associated PVC request, Kosmos will create the corresponding PVC in the member cluster based on the Pod creation event.
 - After the PVC is created in the member cluster (Member-Cluster), the process follows the same flow as in a single Kubernetes cluster, including completion of Pod creation, PVC creation, PV creation, and PVC-PV binding.
-- When PV is created in the member cluster (Member-Cluster), the corresponding PV controller will create the PV in the primary cluster (Host-Cluster) based on the PV creation event.
-- After successful scheduling in the member cluster (Member-Cluster) and binding of PVC and PV, the PV creation in the primary cluster (Host-Cluster) completes the binding of PVC and PV.
+- When PV is created in the member cluster (Member-Cluster), the corresponding PV controller will create the PV in the host cluster (Host-Cluster) based on the PV creation event.
+- After successful scheduling in the member cluster (Member-Cluster) and binding of PVC and PV, the PV creation in the host cluster (Host-Cluster) completes the binding of PVC and PV.
 
 ### Related
 
@@ -158,11 +158,10 @@ spec:
 
 2. Executing the creation operation in the Host cluster: 
 ````shell script
-[root@cnp-paas-ecsc-001 ylc]# kubectl apply -f test.yaml
+[root@kosmos-control-cluster ylc]# kubectl apply -f test.yaml
 persistentvolumeclaim/nginx-pvc created
 deployment.apps/nginx-new created
-[root@cnp-paas-ecsc-001 ylc]#
-[root@cnp-paas-ecsc-001 ylc]# kubectl get all -n test-new
+[root@kosmos-control-cluster ylc]# kubectl get all -n test-new
 NAME                             READY   STATUS    RESTARTS   AGE
 pod/nginx-new-5677468b6c-ns9k2   0/1     Pending   0          5s
 
@@ -171,26 +170,26 @@ deployment.apps/nginx-new   0/1     1            0           5s
 
 NAME                                   DESIRED   CURRENT   READY   AGE
 replicaset.apps/nginx-new-5677468b6c   1         1         0       5s
-[root@cnp-paas-ecsc-001 ylc]# kubectl get all -n test-new -owide
+[root@kosmos-control-cluster ylc]# kubectl get all -n test-new -owide
 NAME                             READY   STATUS    RESTARTS   AGE   IP              NODE               NOMINATED NODE   READINESS GATES
-pod/nginx-new-5677468b6c-ns9k2   1/1     Running   0          11s   10.224.12.252   kosmos-cluster38   <none>           <none>
+pod/nginx-new-5677468b6c-ns9k2   1/1     Running   0          11s   10.*.*.252   kosmos-cluster38   <none>           <none>
 
 NAME                        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                SELECTOR
-deployment.apps/nginx-new   1/1     1            1           11s   nginx        registry.paas/cnp/nginx:1.14-alpine   app=nginx
+deployment.apps/nginx-new   1/1     1            1           11s   nginx        nginx:1.14-alpine   app=nginx
 
 NAME                                   DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                SELECTOR
-replicaset.apps/nginx-new-5677468b6c   1         1         1       11s   nginx        registry.paas/cnp/nginx:1.14-alpine   app=nginx,pod-template-hash=56774
-[root@cnp-paas-ecsc-001 ylc]# kubectl get pvc -n test-new
+replicaset.apps/nginx-new-5677468b6c   1         1         1       11s   nginx        nginx:1.14-alpine   app=nginx,pod-template-hash=56774
+[root@kosmos-control-cluster ylc]# kubectl get pvc -n test-new
 NAME        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS       AGE
 nginx-pvc   Bound    pvc-ad86ef86-23c1-407e-a8e7-0b3e44d36254   1Gi        RWO            openebs-hostpath   21s
 ````
 
 3. Querying the status in the Member cluster: 
 ````shell script
-[root@cnp-paas-ecsc-004 ~]# kubectl get all -n test-new
+[root@cluster38 ~]# kubectl get all -n test-new
 NAME                             READY   STATUS    RESTARTS   AGE
 pod/nginx-new-5677468b6c-ns9k2   1/1     Running   0          2m36s
-[root@cnp-paas-ecsc-004 ~]# kubectl get pvc -n test-new
+[root@cluster38 ~]# kubectl get pvc -n test-new
 NAME        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS       AGE
 nginx-pvc   Bound    pvc-ad86ef86-23c1-407e-a8e7-0b3e44d36254   1Gi        RWO            openebs-hostpath   2m41s
 ````

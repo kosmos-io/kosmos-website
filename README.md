@@ -1,7 +1,7 @@
 # Kosmos Docs & Website
 
 This repo contains the source code of [Kosmos website](https://kosmos-io.github.io/website/) and all of the docs for Kosmos.
-It's built by [Docusaurus](https://kosmos-io.github.io/website/v0.2.0/getting-started/introduction), a modern static website generator.
+It's built by [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 - [Kosmos website](https://kosmos-io.github.io/website/)
 - [Kosmos docs](https://kosmos-io.github.io/website/v0.2.0/getting-started/introduction)
@@ -15,7 +15,7 @@ When you add or modify the docs, these two files(`docs/kosmos/docs/` and `sideba
 ## Run with Node.js
 
 If you have the Node.js environment, you can run the website locally.
-- It is recommended to use version v18.0.0
+- It is recommended to use version node v18.0.0+ and npm v8.6+
 - You can download [Node.js](https://nodejs.org/download/release/v18.0.0)
 
 ```shell script

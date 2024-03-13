@@ -49,6 +49,10 @@ const sidebars = {
                     id: 'v0.2.0/tutorials/ipsec-network',
                     type: 'doc',
                 },
+                {
+                    id: 'v0.2.0/tutorials/application-migration',
+                    type: 'doc',
+                },
             ],
         },
         {

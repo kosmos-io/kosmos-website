@@ -13,10 +13,10 @@ Currently, Kosmos primarily consists of three major modules: `ClusterLink`, `Clu
 
 ## ClusterLink
 
-The target of Kosmos networking is to establish connectivity between multiple Kubernetes clusters. This module can be deployed and used independently. Kosmos networking enables `Pods` to access `Pods` and `Services` across clusters, as if they were in the same cluster. Currently, this module primarily offers the following ability:
-1. **Cross-cluster PodIP and ServiceIP Make communication**: Linux VxLAN base on tunneling technology, this enables L3 network connectivity across multiple Kubernetes clusters. This allows users to conduct `Pod-to-Pod` and `Pod-to-Service` communication within the global clusters scope.
-2. **Multi-Mode Support**: When join clusters, you can choose `P2P` or `Gateway` mode. When selecting the `P2P` mode, it is applicable for underlay network interconnection,offering shorter network paths and superior performance. When selecting the `Gateway` mode, it demonstrates superior compatibility, which is well-suited for hybrid and multi-cloud scenarios.
-3. **Support for Global IP Allocation**: Kosmos networking allows for the presence of two or more clusters within the global clusters to use the same `Pod/Service` network segments, making it convenient for users to manage subnet. Kosmos supports configuring the mapping relationship between `PodCIDR/ServiceCIDR` and `GlobalCIDR`. `GlobalIP` is globally unique, enabling cross-cluster communication for services with conflicting network segments through `GlobalIP`.
+The target of ClusterLink is to establish connectivity between multiple Kubernetes clusters. This module can be deployed and used independently. ClusterLink enables `Pods` to access `Pods` and `Services` across clusters, as if they were in the single cluster. Currently, this module primarily offers the following ability:
+1. **Cross-cluster PodIP and ServiceIP communication**: L3 network connections across multiple Kubernetes clusters, based on tunneling technologies such as VxLAN and IPsec. This allows users to conduct `Pod-to-Pod` and `Pod-to-Service` communication within the global clusters scope.
+2. **Multi-Mode Support**: When join clusters, you can choose `P2P` or `Gateway` mode. The P2P model provides a second-layer network interconnection at the overlay level, offering shorter network paths and superior performance. When selecting the `Gateway` mode, it demonstrates superior compatibility, which is well-suited for hybrid and multi-cloud scenarios.
+3. **Support for Global IP Allocation**: ClusterLink allows for the presence of two or more clusters within the global clusters to use the same `Pod/Service` network segments, making it convenient for users to manage subnet. ClusterLink supports configuring the mapping relationship between `PodCIDR/ServiceCIDR` and `GlobalCIDR`. `GlobalIP` is globally unique, enabling cross-cluster communication for services with conflicting network segments through `GlobalIP`.
 4. **IPv6/IPv4 Dual-Stack Support**
 
 ### Network Architecture
@@ -32,12 +32,12 @@ The Kosmos ClusterLink module currently includes the following key components:
 
 ## ClusterTree
 
-The Kosmos clustertree module realizes the tree-like scaling of Kubernetes and achieves cross-cluster orchestration of applications.
+The Kosmos clustertree module realizes the tree-like scaling of Kubernetes and achieves cross-cluster orchestration of applications.This is the technological foundation for Kosmos to achieve boundless of Kubernetes.
 ![ClusterTree_Architecture.png](img/ClusterTree_Architecture.png)
 
 Currently, it primarily supports the following ability:
 1. **Full Compatibility with k8s API**: Users can interact with the host cluster's `kube-apiserver` using tools like `kubectl`, `client-go`, and others just like they normally would. However, the `Pods` are actually distributed across the entire multi-cloud, multi-cluster environment.
-2. **Support for Stateful and k8s-native Applications**: In addition to stateless applications, Kosmos also facilitates the orchestration of stateful applications and k8s-native applications (interacting with `kube-apiserver`). Kosmos will automatically detect the storage and permission resources that `Pods`depend on, such as pv/pvc, sa, etc., and perform automatic bothway synchronization.
+2. **Support for Stateful and k8s-native Applications**: In addition to stateless applications, Kosmos also facilitates the orchestration of stateful applications and k8s-native applications (interacting with `kube-apiserver`). Kosmos will automatically detect the storage and permission resources that `Pods` depend on, such as pv/pvc, sa, etc., and perform bidirectional synchronization between control plane clusters and data plane clusters.
 3. **Diverse Pod Topology Constraints**: Users can easily control the distribution of Pods within the global clusters, such as by region, availability zone, cluster, or node. This helps achieve high availability and improve resource utilization.
 
 ## Scheduler

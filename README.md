@@ -14,7 +14,9 @@ When you add or modify the docs, these two files(`docs/kosmos/docs/` and `sideba
 
 ## Run with Node.js
 
-If you have the Node.js environment, you can run the website locally. (Require Node 18+ and npm 8.6+) 
+If you have the Node.js environment, you can run the website locally.
+- It is recommended to use version node v18.0.0+ and npm v8.6+
+- You can download [Node.js](https://nodejs.org/download/release/v18.0.0)
 
 ```shell script
 # Clone the repo, or your own fork

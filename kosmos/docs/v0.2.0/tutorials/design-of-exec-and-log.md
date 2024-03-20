@@ -1,25 +1,25 @@
 ---
 id: exe-and-log
-title: 'Design of EXE and Log in Kosmos'
+title: 'Design of EXEC and Log in Kosmos'
 ---
 
-# Design of EXE and Log in Kosmos
+# Design of EXEC and Log in Kosmos
 
-## Kosmos EXE and Log Solution 
+## Kosmos EXEC and Log Solution 
 
 ### Introduction
-In Kosmos, the pods scheduled to kosmos-node also support the kubectl exec and kubectl log functionalities. 
-Since the overall architecture of exec and log is the same, we will use exec as an example to explain the design approach. 
+In Kosmos, the pods scheduled to kosmos-node also support the `kubectl exec` and `kubectl log` functions. 
+Since the overall architecture of `kubectl exec` and `kubectl log` is the same, we will use `kubectl exec` as a sample to introduce the overall architecture. 
 The following diagram illustrates the overall design architecture.
 
 ![EXE Log_Arch.png](img/EXE_Log_Arch.png)
 
 ### Background Knowledge
-First, let's sort out how exec is implemented in k8s. 
-The leaf-cluster part of the architecture diagram is a representation of the exec function of a general cluster. 
+First, let's explore how to implement `kubectl exec` in Kubernetes. 
+The _**leaf-cluster**_ part of the architecture diagram is a representation of the `kubectl exec` function of a native cluster. 
 The kubectl exec request initiated by the user is processed by apiserver. 
-After receiving the exec request, apiserver needs to forward the request to the node where the pod is located, so it needs to query the information of the node where the pod is located. 
-In the k8s source code, apiserver will call the ExecLocation method to obtain the exec url of the pod. 
+After receiving the exec request, apiserver needs to forward the request to the node where the pod is allocated, so it needs to query the information of the node where the pod is allocated. 
+In the Kubernetes source code, apiserver will call the `ExecLocation` method to obtain the exec url of the pod. 
 The code is as follows:
 ````shell script
 // ExecLocation returns the exec URL for a pod container. If opts.Container is blank
@@ -35,7 +35,7 @@ func ExecLocation(
 }
 ````
 
-ExecLocation calls the streamLocation method, and streamLocation obtains pod information through the pod name.
+`ExecLocation` calls the `streamLocation` method, and streamLocation obtains pod information through the pod name.
 ````shell script
 func streamLocation(
     ctx context.Context,
@@ -81,7 +81,7 @@ func streamLocation(
 }
 ````
 
-Then the node name where the pod is located is obtained through pod.Spec.NodeName, and then a key method GetConnectionInfo is called. The code is as follows:
+Then the node name where the pod is allocated is obtained through `pod.Spec.NodeName`, and then a key method `GetConnectionInfo` is called. The code is as follows:
 ````shell script
 // GetConnectionInfo retrieves connection info from the status of a Node API object.
 func (k *NodeConnectionInfoGetter) GetConnectionInfo(ctx context.Context, nodeName types.NodeName) (*ConnectionInfo, error) {
@@ -112,19 +112,19 @@ func (k *NodeConnectionInfoGetter) GetConnectionInfo(ctx context.Context, nodeNa
 }
 ````
 
-GetConnectionInfo obtains the node information through the node name, then uses GetPreferredNodeAddress to select a suitable host, and then through the previous streamLocation processing, an exec request URL is pieced together. 
+`GetConnectionInfo` obtains the node information through the node name, then uses `GetPreferredNodeAddress` to select a suitable host, and then through the `streamLocation` processing, an exec request URL is pieced together. 
 The apiserver will know which node to forward the exec request to. 
 The kubelet service running on the node will capture the exec request and then establish a link with the pod.
 
 The above briefly introduces the process of establishing kubectl exec.
 
 ### Implementation in Kosmos
-Next, let's take a look at the root cluster in the overall architecture diagram. 
+Next, let's take a look at the _**root-cluster**_ in the overall architecture diagram. 
 In order for the exec request to be passed to the leaf cluster, the exec request needs to be forwarded. 
 
-First, we need to tell apiserver that the ip address of kosmos-node is the podIP of our clustertree-cluster-manager, which will cause apiserver to forward the exec request to clustertree-cluster-manager. 
-When we synchronize the node information of kosmos-node, we read it from the environment variable LEAF_NODE_IP. 
-This environment variable is configured when starting the clustertree-cluster-manager service. 
+First, we need to tell apiserver that the ip address of kosmos-node is the podIP of our _**clustertree-cluster-manager**_, which will cause apiserver to forward the exec request to _**clustertree-cluster-manager**_. 
+When we synchronize the node information of kosmos-node, we read it from the environment variable `LEAF_NODE_IP`. 
+This environment variable is configured when starting the _**clustertree-cluster-manager**_ service. 
 The key configuration fragment is as follows:
 ````shell script
 spec:
@@ -146,8 +146,8 @@ spec:
            value: InternalDNS
 ````
 
-Then we need to start a kubelet-like service that listens to exec. 
-In the clustertree-cluster-manager service, we start a nodeserver service. 
+Then we need to start a service similar to kubelet that listens to exec. 
+In the _**clustertree-cluster-manager**_ service, we start a nodeserver service. 
 The code snippet is as follows:
 ````shell script
 nodeServer := nodeserver.NodeServer{
@@ -190,8 +190,8 @@ func (s *NodeServer) AttachRoutes(m *http.ServeMux) {
 }
 ````
 
-With the forwarding part completed, we need to make the API server in the root cluster recognize the communication address of the kosmos-node as the address of the clustertree-cluster-manager service. 
-Therefore, when maintaining the status of kosmos-node, we synchronize the podIP of clustertree-cluster-manager to kosmos-node. 
+With the forwarding part completed, we need to make the API server in the root cluster recognize the communication address of the kosmos-node as the address of the _**clustertree-cluster-manager**_ service. 
+Therefore, when maintaining the status of kosmos-node, we synchronize the podIP of _**clustertree-cluster-manager**_ to kosmos-node. 
 The complete process is as follows:
 - The user initiates an exec request.
 - The API server in the root cluster receives the exec request and queries the node information based on the pod information.
@@ -202,14 +202,19 @@ With this process, Kosmos implements the exec functionality, and the log functio
 
 ### Customization
 When connecting with es products, there is a customized requirement. 
-The above design will cause the IPs of all kosmos-node to be the podIPs of clustertree-cluster-manage. 
+The above design will cause the IPs of all kosmos-node to be the podIPs of _**clustertree-cluster-manage**_. 
 In the product design of es, nodeIP is used as the primary key, which causes the product to fail to be stored in the warehouse. 
 For this purpose, kosmos has made a special design. 
 The ip address in the node information obtained through kubectl get node -owide is of the InternalIP type.
+```shell
+sudo kubectl get nodes -owide
+NAME                STATUS   ROLES                          AGE     VERSION     INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                                        KERNEL-VERSION                                CONTAINER-RUNTIME
+kosmos-control-1    Ready    control-plane,master,node      65d     v1.21.5     192.xx.xx.1     <none>        BigCloud Enterprise Linux For Euler 21.10 LTS   4.19.90-2107.6.0.0192.8.oe1.bclinux.x86_64    containerd://1.5.7
+kosmos-control-2    Ready    node                           65d     v1.21.5     192.xx.xx.2     <none>        BigCloud Enterprise Linux For Euler 21.10 LTS   4.19.90-2107.6.0.0192.8.oe1.bclinux.x86_64    containerd://1.5.7
+kosmos-cluster1     Ready    agent                          20d     v1.21.5     192.xx.xx.3     <none>
+```
 
-![EXE_Log_2.png](img/EXE_Log_2.png)
-
-The function GetPreferredNodeAddress used by the apiserver mentioned above when querying the host of the node will select one from the Address list according to the priority, so in es, we set the podIP of clustertree-cluster-manage as other priority higher than the InternalIP category address, as shown below, you can specify the type of ip and the value of ip.
+The function GetPreferredNodeAddress used by the apiserver mentioned above when querying the host of the node will select one from the Address list according to the priority, so in es, we set the podIP of _**clustertree-cluster-manage**_ as other priority higher than the InternalIP category address, as shown below, you can specify the type of ip and the value of ip.
 ````shell script
 func GetAddress(ctx context.Context, rootClient kubernetes.Interface, originAddress []corev1.NodeAddress) ([]corev1.NodeAddress, error) {
     preferredAddressType := corev1.NodeAddressType(os.Getenv("PREFERRED-ADDRESS-TYPE"))
@@ -234,9 +239,10 @@ func GetAddress(ctx context.Context, rootClient kubernetes.Interface, originAddr
 
 How to check address priority? By looking at the startup parameter of api-server - kubelet-preferred-address-types, the GetPreferredNodeAddress function is set here to obtain the priority of the host. 
 By default, InternalDNS has the highest priority.
-
-![EXE_Log_3.png](img/EXE_Log_3.png)
+```shell
+- --kubelet-preferred-address-types=InternalDNS,InternalIP,Hostname,ExternaLDNS,ExternalIP
+```
 
 ### Conclusion
-In Kosmos, both kubectl exec and kubectl log are "tricked" by the API server and redirected to our own clustertree-cluster-manager service. 
+In Kosmos, both `kubectl exec` and `kubectl log` are "tricked" by the API server and redirected to our own _**clustertree-cluster-manager**_ service. 
 This allows us to implement customized features in subsequent steps.

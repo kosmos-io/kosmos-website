@@ -80,7 +80,11 @@ const config = {
 					position: "right",
 					label: "Documentation",
 				},
-				{ to: "/blog", label: "Examples", position: "right" },
+				{
+					href: "https://kosmos-io.github.io/website/v0.2.0/quick-start",
+					label: "Examples",
+					position: "right"
+				},
 				{
 					href: "https://github.com/kosmos-io/kosmos",
 					className: "header-github-link",

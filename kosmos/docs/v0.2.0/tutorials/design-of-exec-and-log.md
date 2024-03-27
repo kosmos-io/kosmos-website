@@ -12,7 +12,7 @@ In Kosmos, the pods scheduled to kosmos-node also support the `kubectl exec` and
 Since the overall architecture of `kubectl exec` and `kubectl log` is the same, we will use `kubectl exec` as a sample to introduce the overall architecture. 
 The following diagram illustrates the overall design architecture.
 
-![EXE Log_Arch.png](img/EXE_Log_Arch.png)
+![EXE Log_Arch.png](img/EXEC_Log_Arch.png)
 
 ### Background Knowledge
 First, let's explore how to implement `kubectl exec` in Kubernetes. 

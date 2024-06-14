@@ -53,6 +53,10 @@ const sidebars = {
                     id: 'v0.2.0/tutorials/application-migration',
                     type: 'doc',
                 },
+                {
+                    id: 'v0.2.0/tutorials/kubenest',
+                    type: 'doc',
+                },
             ],
         },
         {

@@ -1,3 +1,8 @@
+---
+id: performance-testing
+title: 'Kosmos Performance Testing'
+---
+
 # Kosmos Performance Testing
 
 ## Network Performance Testing
@@ -50,18 +55,16 @@ There are currently three official SLIs:
 
 **API Call Latency**
 
-| **Status** | **SLI**                                                      | **SLO**                                                      |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Official   | Single Object Mutating API P99 latency in the last 5 minutes | Except for aggregation API and CRD，P99 <= 1s                |
-| Official   | Non streaming read only API P99 latency in the last 5 minutes | Except for aggregation API and CRD, Scope=resource,P99 <= 1sScope=namespace,P99 <= 5sScope=cluster,P99 <= 30s |
-
- 
+| **Status** | **SLI**                                                       | **SLO**                                       |
+|------------|---------------------------------------------------------------|-----------------------------------------------|
+| Official   | Single Object Mutating API P99 latency in the last 5 minutes  | Except for aggregation API and CRD, P99 < 1s  |
+| Official   | Non streaming read only API P99 latency in the last 5 minutes | Except for aggregation API and CRD, P99 < 30s |
 
 **Pod Startup Latency**
 
-| Status   | **SLI**                                                      | SLO       |
-| -------- | ------------------------------------------------------------ | --------- |
-| Official | Stateless Pod startup time (excluding mirror removal and InitContainer), reporting startup time from Pod createTimestamp to all containers, and P99 time observed by the watch | P99 <= 5s |
+| Status   | **SLI**                                                                                                                                                                        | SLO      |
+|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| Official | Stateless Pod startup time (excluding mirror removal and InitContainer), reporting startup time from Pod createTimestamp to all containers, and P99 time observed by the watch | P99 < 5s |
 
 
 
@@ -80,7 +83,7 @@ Kwok is a simulation testing toolkit officially released by Kubernetes, which al
 Use the Density test cases provided by ClusterLoader2( https://github.com/kubernetes/perf-tests/blob/master/clusterloader2/testing/density/config.yaml)。The detailed configuration of this report is shown in the table below:
 
 | Type                         | Value   |
-| ---------------------------- | ------- |
+|------------------------------|---------|
 | Number of Nodes              | 100,000 |
 | Number of Pods               | 200,000 |
 | Number of Pods per node      | 2       |
@@ -212,7 +215,7 @@ CPU MHz:       2482.416
 ##### 2. **Pod Startup Latency**
 
 | **metric**         | p50(ms) | p90(ms) | p99(ms) | **SLO(ms)** |
-| ------------------ | ------- | ------- | ------- | ----------- |
+|--------------------|---------|---------|---------|-------------|
 | pod_startup        | 780     | 1189    | 1403    | 5000        |
 | create_to_schedule | 0       | 0       | 1000    | N/A         |
 | schedule_to_run    | 0       | 0       | 1000    | N/A         |

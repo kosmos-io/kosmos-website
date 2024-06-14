@@ -1,6 +1,6 @@
 ---
-id: mcs-discovery
-title: 'Multi-cluster Service Discovery'
+id: mcs-discovery_zh
+title: '多集群服务发现'
 ---
 
 # 多集群服务发现

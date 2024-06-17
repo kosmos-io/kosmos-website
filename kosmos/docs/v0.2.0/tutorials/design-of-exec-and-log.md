@@ -239,7 +239,7 @@ func GetAddress(ctx context.Context, rootClient kubernetes.Interface, originAddr
 
 How to check address priority? By looking at the startup parameter of api-server - kubelet-preferred-address-types, the GetPreferredNodeAddress function is set here to obtain the priority of the host. 
 By default, InternalDNS has the highest priority.
-```shell script
+```shell
 - --kubelet-preferred-address-types=InternalDNS,InternalIP,Hostname,ExternaLDNS,ExternalIP
 ```
 

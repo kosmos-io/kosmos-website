@@ -76,10 +76,6 @@ const sidebars = {
                     id: 'v0.2.0/proposals/leaf-node-generate-rules',
                     type: 'doc',
                 },
-                {
-                    id: 'v0.2.0/proposals/performance-testing',
-                    type: 'doc',
-                },
             ],
         },
         // {

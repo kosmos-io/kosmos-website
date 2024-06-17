@@ -47,10 +47,12 @@ The Kosmos scheduling module is an extension developed on top of the Kubernetes 
 1. **Flexible Node and Cluster Hybrid Scheduling**: The Kosmos scheduling module allows users to intelligently schedule workloads between real nodes and sub-clusters based on custom configurations. This enables users to make optimal use of resources across different nodes, ensuring the best performance and availability of workloads. Based on this capability, Kosmos enables workloads to achieve flexible cross-cloud and cross-cluster deployments.
 2. **Fine-grained Container Distribution Strategy**: By introducing Custom Resource Definitions (CRD), users can exert precise control over the distribution of workloads. The configuration of CRD allows users to explicitly specify the number of pods for the workload in different clusters and adjust the distribution ratio as needed.
 3. **Fine-grained Fragmented Resource Handling**: The Kosmos scheduling module intelligently detects fragmented resources within sub-clusters, effectively avoiding situations where pod deployment encounters insufficient resources in the sub-cluster. This helps ensure a more balanced allocation of resources across different nodes, enhancing system stability and performance.
-
-Whether building a hybrid cloud environment or requiring flexible deployment of workloads across different clusters, the Kosmos scheduling module serves as a reliable solution, assisting users in managing containerized applications more efficiently.
+   Whether building a hybrid cloud environment or requiring flexible deployment of workloads across different clusters, the Kosmos scheduling module serves as a reliable solution, assisting users in managing containerized applications more efficiently.
 
 ## What's Next
 - Start to [install Kosmos](https://kosmos-io.github.io/website/v0.2.0/quick-start).
 - Learn Kosmos's [tutorials](https://kosmos-io.github.io/website/v0.2.0/tutorials/mcs-discovery).
 - Learn Kosmos's [proposals](https://kosmos-io.github.io/website/v0.2.0/proposals/k8s-in-k8s).
+
+
+

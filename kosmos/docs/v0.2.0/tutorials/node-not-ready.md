@@ -122,3 +122,10 @@ handlers.go:139] webhooks/resource/validate "msg"="admission request denied" "cl
 event.go:307] "Event occurred" object="kosmos-node-not-ready" fieldPath="" kind="ClusterPolicy" apiVersion="kyverno.io/v1" type="Warning" reason="PolicyViolation" message="Pod default/example-deployment-6cc4fd9bd7-kkm8z: [kosmos-node-not-ready] fail (blocked);  system:serviceaccount:kube-system:node-controller delete pod example-deployment-6cc4fd9bd7-kkm8z of NotReady Kosmos kosmos-cluster2 Node is not allowed. "
 validation.go:103] webhooks/resource/validate "msg"="validation failed" "action"="Enforce" "clusterroles"=["system:basic-user","system:controller:node-controller","system:discovery","system:public-info-viewer","system:service-account-issuer-discovery"] "failed rules"=["kosmos-node-not-ready"] "gvk"={"group":"","version":"v1","kind":"Pod"} "gvr"={"group":"","version":"v1","resource":"pods"} "kind"="Pod" "name"="example-deployment-6cc4fd9bd7-sb7m7" "namespace"="default" "operation"="DELETE" "policy"="kosmos-node-not-ready" "resource"="default/Pod/example-deployment-6cc4fd9bd7-sb7m7" "resource.gvk"={"Group":"","Version":"v1","Kind":"Pod"} "roles"=null "uid"="251f1877-4f2c-40ec-9bca-8ceb7c9c845f" "user"={"username":"system:serviceaccount:kube-system:node-controller","uid":"5a13be66-71fd-40e3-9553-00eb0825fbb0","groups":["system:serviceaccounts","system:serviceaccounts:kube-system","system:authenticated"]}
 ```
+
+
+
+
+
+
+

@@ -1,23 +1,23 @@
 # Dependencies
-/kosmos/node_modules
+node_modules
 
 # Production
-/kosmos/build
+build
 
 # Generated files
-/kosmos/.docusaurus
-/kosmos/.cache-loader
+.docusaurus
+.cache-loader
 
 # Misc
-/kosmos/.DS_Store
-/kosmos/.env.local
-/kosmos/.env.development.local
-/kosmos/.env.test.local
-/kosmos/.env.production.local
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-/kosmos/npm-debug.log*
-/kosmos/yarn-debug.log*
-/kosmos/yarn-error.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 .idea/
 .vscode/

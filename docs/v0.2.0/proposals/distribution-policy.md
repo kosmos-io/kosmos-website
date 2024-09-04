@@ -19,7 +19,7 @@ Kosmos provides a multi-cluster scheduler (kosmos-scheduler) and some scheduling
 [Code](https://github.com/kosmos-io/kosmos/pull/321) responsible for working with DistributionPolicy and ClusterDistributionPolicy CRD API will be imported in the kosmos-scheduler plugins repo. DistributionPolicy is namespace scope and ClusterDistributionPolicy is cluster scope.
 
 #### Filter extension points implementation details
-Since target resources distribution policies are stored in the CRD (DistributionPolicy & ClusterDistributionPolicy), kosmos-scheduler should be subscribed for updates of appropriate CRD type. kosmos-scheduler will use informers which will be generated with the name dpInformer(cdpInformer). CRD will contian in ResourceSelectors and PolicyTerms. ResourceSelectors used to select resources and is required. PolicyTerms represents the rule for select nodes to distribute resources.
+Since target resources distribution policies are stored in the CRD (DistributionPolicy & ClusterDistributionPolicy), kosmos-scheduler should be subscribed for updates of appropriate CRD type. kosmos-scheduler will use informers which will be generated with the name dpInformer(cdpInformer). CRD will contain in ResourceSelectors and PolicyTerms. ResourceSelectors used to select resources and is required. PolicyTerms represents the rule for select nodes to distribute resources.
 
 **Description of the ResourceSelectors rules**
 1. ResourceSelectors is required

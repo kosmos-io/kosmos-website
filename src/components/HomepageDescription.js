@@ -8,7 +8,7 @@ function Feature() {
       <div className={styles.leftInfo}>
         <img src="img/feature-info.svg" alt="" />
       </div>
-      <div className={styles.rigthInfo}>
+      <div className={styles.rightInfo}>
         <div className={styles.featureTitle}>What is Kosmos？</div>
         <div className={styles.featuresDes}>
           <p>Kosmos is an open-source, integrated distributed cloud-native solution. The name "kosmos" is formed by combining the "k" representing Kubernetes with "cosmos" from Greek, symbolizing the infinite scalability of Kubernetes.</p>

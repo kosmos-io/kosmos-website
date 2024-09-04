@@ -1,5 +1,6 @@
 //具体配置可以查看 https://docusaurus.io/docs/api/docusaurus-config
 import { url } from "inspector";
+import { type } from "os";
 import { themes as prismThemes } from "prism-react-renderer";
 
 // /** @type {import('@docusaurus/types').Config} */
@@ -22,13 +23,21 @@ const config = {
 	deploymentBranch: "gh-pages",
 	trailingSlash: false,
 
-	onBrokenLinks: "throw", //Docusaurus 在检测到无效链接时的行为
+	onBrokenLinks: "ignore", //Docusaurus 在检测到无效链接时的行为
 	onBrokenMarkdownLinks: "warn",
 
 	//i18n配置相关
 	i18n: {
 		defaultLocale: "en",
-		locales: ["en"],
+		locales: ["en", "zh-Hans"],
+		localeConfigs: {
+			en: {
+				label: "English",
+			},
+			"zh-Hans": {
+				label: "简体中文",
+			},
+		},
 	},
 
 	scripts: [], //一组要加载的脚本
@@ -39,7 +48,6 @@ const config = {
 			{
 				docs: {
 					sidebarPath: require.resolve("./sidebars.js"),
-					routeBasePath: "/",
 					showLastUpdateTime: true,
 					showLastUpdateAuthor: true,
 					editUrl:
@@ -79,11 +87,15 @@ const config = {
 				{
 					type: "docSidebar",
 					sidebarId: "tutorialSidebar",
-					position: "left",
 					label: "Documentation",
+					position: "left",
 				},
 				{
-					href: "https://kosmos-io.github.io/website/v0.2.0/quick-start",
+					type: "localeDropdown",
+					position: "right",
+				},
+				{
+					href: "https://kosmos-io.github.io/website/quick-start",
 					label: "Examples",
 					position: "right"
 				},
@@ -103,15 +115,15 @@ const config = {
 					items: [
 						{
 							label: "Getting Started",
-							to: "v0.2.0/getting-started/introduction",
+							to: "getting-started/introduction",
 						},
 						{
 							label: "Tutorials",
-							to: "v0.2.0/tutorials/mcs-discovery",
+							to: "tutorials/mcs-discovery",
 						},
 						{
 							label: "Proposals",
-							to: "v0.2.0/proposals/k8s-in-k8s",
+							to: "proposals/k8s-in-k8s",
 						},
 					],
 				},

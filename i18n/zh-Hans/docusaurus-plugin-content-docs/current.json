@@ -1,0 +1,18 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.getting-started": {
+    "message": "getting-started",
+    "description": "The label for category getting-started in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.proposals": {
+    "message": "proposals",
+    "description": "The label for category proposals in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.tutorials": {
+    "message": "tutorials",
+    "description": "The label for category tutorials in sidebar tutorialSidebar"
+  }
+}

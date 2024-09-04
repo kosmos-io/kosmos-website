@@ -1,0 +1,18 @@
+{
+  "title": {
+    "message": "Kosmos",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Kosmos Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Documentation": {
+    "message": "Documentation",
+    "description": "Navbar item with label Documentation"
+  },
+  "item.label.Examples": {
+    "message": "Examples",
+    "description": "Navbar item with label Examples"
+  }
+}

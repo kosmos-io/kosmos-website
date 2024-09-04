@@ -1534,7 +1534,7 @@
     "@docsearch/css" "3.6.1"
     algoliasearch "^4.19.1"
 
-"@docusaurus/core@3.5.2", "@docusaurus/core@^3.1.1":
+"@docusaurus/core@3.5.2", "@docusaurus/core@^3.5.2":
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/@docusaurus/core/-/core-3.5.2.tgz#3adedb90e7b6104592f1231043bd6bf91680c39c"
   integrity sha512-4Z1WkhCSkX4KO0Fw5m/Vuc7Q3NxBG53NE5u59Rs96fWkMPZVSrzEPP16/Nk6cWb/shK7xXPndTmalJtw7twL/w==

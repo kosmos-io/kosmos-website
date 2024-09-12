@@ -1856,7 +1856,7 @@
     tslib "^2.6.0"
     utility-types "^3.10.0"
 
-"@docusaurus/theme-live-codeblock@^3.1.1":
+"@docusaurus/theme-live-codeblock@^3.5.2":
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/@docusaurus/theme-live-codeblock/-/theme-live-codeblock-3.5.2.tgz#1a39505f1b221b76a0860aa8e30437f1f963e929"
   integrity sha512-/jr+xvmJmvPhZsqUXQ+SGuI38qCb4dR9IZu0e+UA5my4pO63h//Nnf73naTiK3DYeszK+E0dyULPyWszVpjjOw==

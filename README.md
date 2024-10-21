@@ -5,8 +5,8 @@
 This repo contains the source code of [Kosmos website](https://kosmos-io.github.io/website/) and all of the docs for Kosmos.
 It's built by [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
-- [Kosmos website](https://kosmos-io.github.io/website/)
-- [Kosmos docs](https://kosmos-io.github.io/website/getting-started/introduction)
+- [Kosmos website](https://kosmos-io.github.io/kosmos-website/)
+- [Kosmos docs](https://kosmos-io.github.io/kosmos-website/docs/getting-started/introduction)
 
 Welcome to join us and you are more than appreciated to contribute!
 

@@ -5,8 +5,8 @@
 这个仓库包含了[Kosmos 网站](https://kosmos-io.github.io/website/)的源代码以及所有的 Kosmos 文档。
 它是由[Docusaurus](https://docusaurus.io/)构建的，一个现代的静态网站生成器。
 
-- [Kosmos 网站](https://kosmos-io.github.io/website/)
-- [Kosmos 文档](https://kosmos-io.github.io/website/getting-started/introduction)
+- [Kosmos 网站](https://kosmos-io.github.io/kosmos-website/)
+- [Kosmos 文档](https://kosmos-io.github.io/kosmos-website/docs/getting-started/introduction)
 
 欢迎加入我们，非常感谢您的贡献！
 
